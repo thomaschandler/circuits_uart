@@ -317,6 +317,9 @@ static int uart_config_line(int fd, const struct uart_config *config)
     options.c_cc[VMIN] = 1;
     options.c_cc[VTIME] = 0;
 
+    // Avoid kernel buffering
+    cfmakeraw(&options);
+
     // Set everything
     return tcsetattr(fd, TCSANOW, &options);
 }
